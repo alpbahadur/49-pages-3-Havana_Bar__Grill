@@ -3,9 +3,841 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website</title>
+    <title>Havana Bar & Grill - Fresh Seafood & Ocean Views</title>
+    <meta name="description" content="Experience authentic Cuban cuisine and fresh seafood with breathtaking ocean views at Havana Bar & Grill">
+    <meta property="og:title" content="Havana Bar & Grill">
+    <meta property="og:description" content="Fresh Seafood & Ocean Views">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+            background: #0A1828;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* ===== ANIMATED BACKGROUND ===== */
+        .havana-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: linear-gradient(135deg, #0A1828 0%, #1A2F42 25%, #0D2137 50%, #162840 75%, #0A1828 100%);
+            background-size: 400% 400%;
+            animation: gradientFlow 20s ease infinite;
+        }
+
+        @keyframes gradientFlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Ambient light waves */
+        .havana-background::before,
+        .havana-background::after {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 138, 76, 0.08) 0%, transparent 60%);
+            animation: ambientWave 25s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .havana-background::before {
+            top: -50%;
+            left: -50%;
+            animation-delay: 0s;
+        }
+
+        .havana-background::after {
+            bottom: -50%;
+            right: -50%;
+            animation-delay: -12s;
+            background: radial-gradient(circle, rgba(52, 211, 153, 0.06) 0%, transparent 60%);
+        }
+
+        @keyframes ambientWave {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+                opacity: 0.6;
+            }
+            33% {
+                transform: translate(40px, -40px) rotate(120deg) scale(1.15);
+                opacity: 0.8;
+            }
+            66% {
+                transform: translate(-30px, 30px) rotate(240deg) scale(0.95);
+                opacity: 0.7;
+            }
+        }
+
+        /* ===== TROPICAL LEAVES - Floating from sides ===== */
+        .tropical-leaf {
+            position: fixed;
+            pointer-events: none;
+            opacity: 0;
+            z-index: 5;
+        }
+
+        @keyframes leafFloat {
+            0% {
+                transform: translateY(120vh) translateX(0) rotate(0deg) scale(0.8);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 0.25;
+                transform: translateY(50vh) translateX(30px) rotate(180deg) scale(1);
+            }
+            90% {
+                opacity: 0.15;
+            }
+            100% {
+                transform: translateY(-20vh) translateX(-20px) rotate(360deg) scale(0.7);
+                opacity: 0;
+            }
+        }
+
+        /* Left side leaves */
+        .tropical-leaf.left:nth-child(1) { left: 5%; width: 40px; height: 60px; animation: leafFloat 35s ease-in-out infinite; animation-delay: 0s; background: radial-gradient(ellipse at 30% 30%, rgba(52, 211, 153, 0.4), rgba(34, 197, 94, 0.2)); border-radius: 50% 0% 50% 0%; filter: blur(1px); }
+        .tropical-leaf.left:nth-child(2) { left: 3%; width: 35px; height: 55px; animation: leafFloat 38s ease-in-out infinite; animation-delay: 8s; background: radial-gradient(ellipse at 30% 30%, rgba(45, 212, 191, 0.35), rgba(20, 184, 166, 0.2)); border-radius: 50% 0% 50% 0%; filter: blur(1px); }
+        .tropical-leaf.left:nth-child(3) { left: 7%; width: 45px; height: 65px; animation: leafFloat 32s ease-in-out infinite; animation-delay: 16s; background: radial-gradient(ellipse at 30% 30%, rgba(52, 211, 153, 0.38), rgba(34, 197, 94, 0.18)); border-radius: 50% 0% 50% 0%; filter: blur(1px); }
+        .tropical-leaf.left:nth-child(4) { left: 4%; width: 38px; height: 58px; animation: leafFloat 36s ease-in-out infinite; animation-delay: 24s; background: radial-gradient(ellipse at 30% 30%, rgba(45, 212, 191, 0.36), rgba(20, 184, 166, 0.19)); border-radius: 50% 0% 50% 0%; filter: blur(1px); }
+
+        /* Right side leaves */
+        .tropical-leaf.right:nth-child(5) { right: 5%; width: 40px; height: 60px; animation: leafFloat 34s ease-in-out infinite; animation-delay: 4s; background: radial-gradient(ellipse at 70% 30%, rgba(52, 211, 153, 0.4), rgba(34, 197, 94, 0.2)); border-radius: 0% 50% 0% 50%; filter: blur(1px); }
+        .tropical-leaf.right:nth-child(6) { right: 3%; width: 35px; height: 55px; animation: leafFloat 37s ease-in-out infinite; animation-delay: 12s; background: radial-gradient(ellipse at 70% 30%, rgba(45, 212, 191, 0.35), rgba(20, 184, 166, 0.2)); border-radius: 0% 50% 0% 50%; filter: blur(1px); }
+        .tropical-leaf.right:nth-child(7) { right: 7%; width: 45px; height: 65px; animation: leafFloat 33s ease-in-out infinite; animation-delay: 20s; background: radial-gradient(ellipse at 70% 30%, rgba(52, 211, 153, 0.38), rgba(34, 197, 94, 0.18)); border-radius: 0% 50% 0% 50%; filter: blur(1px); }
+        .tropical-leaf.right:nth-child(8) { right: 4%; width: 38px; height: 58px; animation: leafFloat 35s ease-in-out infinite; animation-delay: 28s; background: radial-gradient(ellipse at 70% 30%, rgba(45, 212, 191, 0.36), rgba(20, 184, 166, 0.19)); border-radius: 0% 50% 0% 50%; filter: blur(1px); }
+
+        /* ===== OCEAN BUBBLES - Rising from bottom ===== */
+        .ocean-bubble {
+            position: fixed;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(34, 211, 238, 0.4), rgba(14, 165, 233, 0.2));
+            animation: bubbleRise 8s ease-in infinite;
+            pointer-events: none;
+            z-index: 5;
+            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes bubbleRise {
+            0% {
+                transform: translateY(120vh) translateX(0) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 0.4;
+                transform: translateY(50vh) translateX(20px) scale(1);
+            }
+            90% {
+                opacity: 0.2;
+            }
+            100% {
+                transform: translateY(-10vh) translateX(-15px) scale(0.8);
+                opacity: 0;
+            }
+        }
+
+        /* Bottom bubbles with varied sizes and timings */
+        .ocean-bubble:nth-child(9) { left: 10%; width: 12px; height: 12px; animation-delay: 0s; animation-duration: 9s; }
+        .ocean-bubble:nth-child(10) { left: 25%; width: 8px; height: 8px; animation-delay: 2s; animation-duration: 10s; }
+        .ocean-bubble:nth-child(11) { left: 40%; width: 10px; height: 10px; animation-delay: 4s; animation-duration: 8.5s; }
+        .ocean-bubble:nth-child(12) { left: 55%; width: 14px; height: 14px; animation-delay: 1s; animation-duration: 9.5s; }
+        .ocean-bubble:nth-child(13) { left: 70%; width: 9px; height: 9px; animation-delay: 3s; animation-duration: 10.5s; }
+        .ocean-bubble:nth-child(14) { left: 85%; width: 11px; height: 11px; animation-delay: 5s; animation-duration: 9s; }
+        .ocean-bubble:nth-child(15) { left: 15%; width: 13px; height: 13px; animation-delay: 6s; animation-duration: 8.8s; }
+        .ocean-bubble:nth-child(16) { left: 60%; width: 10px; height: 10px; animation-delay: 7s; animation-duration: 9.2s; }
+
+        /* ===== HIBISCUS PETALS - Rare floating flowers ===== */
+        .hibiscus-petal {
+            position: fixed;
+            border-radius: 50% 0% 50% 0%;
+            background: radial-gradient(ellipse at 40% 40%, rgba(255, 138, 76, 0.35), rgba(251, 146, 60, 0.15));
+            animation: petalDrift 45s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 5;
+            filter: blur(1.5px);
+        }
+
+        @keyframes petalDrift {
+            0% {
+                transform: translate(0, 120vh) rotate(0deg) scale(0.9);
+                opacity: 0;
+            }
+            5% {
+                opacity: 0.25;
+            }
+            50% {
+                transform: translate(80px, 40vh) rotate(180deg) scale(1.1);
+                opacity: 0.2;
+            }
+            95% {
+                opacity: 0.1;
+            }
+            100% {
+                transform: translate(-60px, -20vh) rotate(360deg) scale(0.8);
+                opacity: 0;
+            }
+        }
+
+        .hibiscus-petal:nth-child(17) { left: 20%; width: 25px; height: 25px; animation-delay: 5s; }
+        .hibiscus-petal:nth-child(18) { right: 25%; width: 28px; height: 28px; animation-delay: 20s; }
+        .hibiscus-petal:nth-child(19) { left: 65%; width: 23px; height: 23px; animation-delay: 35s; }
+
+        /* ===== CONTENT LAYER ===== */
+        .content-layer {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Navbar */
+        nav {
+            backdrop-filter: blur(12px);
+            background: rgba(10, 24, 40, 0.85);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav.scrolled {
+            background: rgba(10, 24, 40, 0.95);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Hero Section */
+        .hero-title {
+            font-size: clamp(3rem, 12vw, 8rem);
+            font-weight: 900;
+            letter-spacing: 0.02em;
+            text-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            animation: fadeInUp 1.4s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Cards with glassmorphism */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 138, 76, 0.4);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(255, 138, 76, 0.2);
+        }
+
+        /* Image containers */
+        .image-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+        }
+
+        .image-container img {
+            transition: transform 0.6s ease;
+        }
+
+        .image-container:hover img {
+            transform: scale(1.1);
+        }
+
+        .image-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(10, 24, 40, 0.7) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .image-container:hover .image-overlay {
+            opacity: 1;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, #FF8A4C 0%, #FF6B35 100%);
+            box-shadow: 0 4px 20px rgba(255, 138, 76, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(255, 138, 76, 0.6);
+        }
+
+        .btn-secondary {
+            border: 2px solid rgba(52, 211, 153, 0.8);
+            backdrop-filter: blur(10px);
+            background: rgba(52, 211, 153, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(52, 211, 153, 0.2);
+            border-color: rgba(52, 211, 153, 1);
+            transform: translateY(-2px);
+        }
+
+        /* Section reveals */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Accent colors */
+        .text-coral {
+            color: #FF8A4C;
+        }
+
+        .text-turquoise {
+            color: #34D399;
+        }
+
+        .border-coral {
+            border-color: #FF8A4C;
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .mobile-menu.open {
+            max-height: 500px;
+        }
+    </style>
 </head>
 <body>
-    <!-- Content will be added here -->
+    <!-- Animated Background -->
+    <div class="havana-background"></div>
+
+    <!-- Tropical Leaves - Left side (4 leaves) -->
+    <div class="tropical-leaf left"></div>
+    <div class="tropical-leaf left"></div>
+    <div class="tropical-leaf left"></div>
+    <div class="tropical-leaf left"></div>
+
+    <!-- Tropical Leaves - Right side (4 leaves) -->
+    <div class="tropical-leaf right"></div>
+    <div class="tropical-leaf right"></div>
+    <div class="tropical-leaf right"></div>
+    <div class="tropical-leaf right"></div>
+
+    <!-- Ocean Bubbles (8 bubbles) -->
+    <div class="ocean-bubble"></div>
+    <div class="ocean-bubble"></div>
+    <div class="ocean-bubble"></div>
+    <div class="ocean-bubble"></div>
+    <div class="ocean-bubble"></div>
+    <div class="ocean-bubble"></div>
+    <div class="ocean-bubble"></div>
+    <div class="ocean-bubble"></div>
+
+    <!-- Hibiscus Petals (3 rare flowers) -->
+    <div class="hibiscus-petal"></div>
+    <div class="hibiscus-petal"></div>
+    <div class="hibiscus-petal"></div>
+
+    <!-- Content Layer -->
+    <div class="content-layer">
+        <!-- Navigation -->
+        <nav class="fixed w-full top-0 z-50 transition-all duration-300" id="navbar">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-20">
+                    <div class="flex-shrink-0">
+                        <h1 class="text-2xl md:text-3xl font-bold text-white">
+                            <span class="text-coral">HAVANA</span>
+                        </h1>
+                    </div>
+
+                    <!-- Desktop Menu -->
+                    <div class="hidden md:flex items-center space-x-8">
+                        <a href="#home" class="text-white hover:text-coral transition-colors duration-300 font-medium">Home</a>
+                        <a href="#about" class="text-white hover:text-coral transition-colors duration-300 font-medium">About</a>
+                        <a href="#menu" class="text-white hover:text-coral transition-colors duration-300 font-medium">Menu</a>
+                        <a href="#gallery" class="text-white hover:text-coral transition-colors duration-300 font-medium">Gallery</a>
+                        <a href="#contact" class="btn-primary text-white px-6 py-2 rounded-full font-semibold">Reserve Now</a>
+                    </div>
+
+                    <!-- Mobile Menu Button -->
+                    <button class="md:hidden text-white focus:outline-none" id="mobileMenuBtn">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu -->
+                <div class="mobile-menu md:hidden" id="mobileMenu">
+                    <div class="px-2 pt-2 pb-6 space-y-3">
+                        <a href="#home" class="block text-white hover:text-coral transition-colors duration-300 py-2 font-medium">Home</a>
+                        <a href="#about" class="block text-white hover:text-coral transition-colors duration-300 py-2 font-medium">About</a>
+                        <a href="#menu" class="block text-white hover:text-coral transition-colors duration-300 py-2 font-medium">Menu</a>
+                        <a href="#gallery" class="block text-white hover:text-coral transition-colors duration-300 py-2 font-medium">Gallery</a>
+                        <a href="#contact" class="block btn-primary text-white px-6 py-3 rounded-full font-semibold text-center mt-4">Reserve Now</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section id="home" class="min-h-screen flex items-center justify-center px-4 pt-20">
+            <div class="text-center max-w-5xl mx-auto">
+                <h1 class="hero-title text-white mb-6">
+                    HAVANA
+                </h1>
+                <p class="hero-subtitle text-turquoise mb-4">Bar & Grill</p>
+                <p class="text-xl md:text-2xl text-gray-300 mb-12 font-light max-w-3xl mx-auto leading-relaxed">
+                    Where Caribbean flavors meet the ocean breeze. Experience authentic cuisine with breathtaking seaside views.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                    <a href="#menu" class="btn-primary text-white px-10 py-4 rounded-full font-semibold text-lg inline-block">
+                        Explore Menu
+                    </a>
+                    <a href="#contact" class="btn-secondary text-turquoise px-10 py-4 rounded-full font-semibold text-lg inline-block">
+                        Book a Table
+                    </a>
+                </div>
+
+                <!-- Scroll Indicator -->
+                <div class="mt-20 animate-bounce">
+                    <svg class="w-8 h-8 mx-auto text-coral" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-24 px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="reveal">
+                        <div class="image-container rounded-2xl overflow-hidden shadow-2xl">
+                            <img src="./assets/image_5.jpg" alt="Havana Restaurant Interior" class="w-full h-full object-cover">
+                            <div class="image-overlay"></div>
+                        </div>
+                    </div>
+                    <div class="reveal space-y-6">
+                        <h2 class="text-5xl md:text-6xl font-bold text-white mb-6">
+                            Welcome to <span class="text-coral">Paradise</span>
+                        </h2>
+                        <p class="text-lg text-gray-300 leading-relaxed">
+                            Nestled along the pristine coastline, Havana Bar & Grill brings the vibrant spirit of Cuba to your plate. Our restaurant combines authentic Caribbean flavors with fresh, locally-sourced seafood.
+                        </p>
+                        <p class="text-lg text-gray-300 leading-relaxed">
+                            Dine with panoramic ocean views, feel the tropical breeze, and savor every moment in our open-air paradise. Whether it's a romantic dinner or a celebration with friends, Havana offers an unforgettable culinary journey.
+                        </p>
+                        <div class="grid grid-cols-2 gap-6 pt-6">
+                            <div class="glass-card p-6 rounded-xl">
+                                <div class="text-4xl font-bold text-coral mb-2">15+</div>
+                                <div class="text-gray-300">Years Experience</div>
+                            </div>
+                            <div class="glass-card p-6 rounded-xl">
+                                <div class="text-4xl font-bold text-turquoise mb-2">100%</div>
+                                <div class="text-gray-300">Fresh Seafood</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="py-24 px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-5xl md:text-6xl font-bold text-white mb-4">
+                        Why <span class="text-turquoise">Havana</span>?
+                    </h2>
+                    <p class="text-xl text-gray-300">Experience the difference that passion makes</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="glass-card p-8 rounded-2xl text-center reveal">
+                        <div class="w-20 h-20 bg-gradient-to-br from-coral to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4">Fresh Ingredients</h3>
+                        <p class="text-gray-300">Locally sourced seafood and produce delivered daily to ensure the highest quality and freshness in every dish.</p>
+                    </div>
+
+                    <div class="glass-card p-8 rounded-2xl text-center reveal">
+                        <div class="w-20 h-20 bg-gradient-to-br from-turquoise to-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4">Ocean Views</h3>
+                        <p class="text-gray-300">Dine with stunning panoramic views of the ocean. Watch the sunset while enjoying your meal in our open-air paradise.</p>
+                    </div>
+
+                    <div class="glass-card p-8 rounded-2xl text-center reveal">
+                        <div class="w-20 h-20 bg-gradient-to-br from-blue-400 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4">Authentic Recipes</h3>
+                        <p class="text-gray-300">Traditional Cuban and Caribbean recipes passed down through generations, crafted by our expert culinary team.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Dishes -->
+        <section id="menu" class="py-24 px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-5xl md:text-6xl font-bold text-white mb-4">
+                        Featured <span class="text-coral">Dishes</span>
+                    </h2>
+                    <p class="text-xl text-gray-300">Fresh from the ocean to your plate</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Dish 1 -->
+                    <div class="glass-card rounded-2xl overflow-hidden reveal group">
+                        <div class="image-container h-64">
+                            <img src="./assets/image_6.jpg" alt="Seafood Pasta" class="w-full h-full object-cover">
+                            <div class="image-overlay"></div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold text-white mb-2">Seafood Pasta</h3>
+                            <p class="text-gray-300 mb-4">Fresh shrimp and mussels tossed in our signature tomato sauce</p>
+                            <div class="text-coral font-bold text-xl">$24.99</div>
+                        </div>
+                    </div>
+
+                    <!-- Dish 2 -->
+                    <div class="glass-card rounded-2xl overflow-hidden reveal group">
+                        <div class="image-container h-64">
+                            <img src="./assets/image_7.jpg" alt="Grilled Fish" class="w-full h-full object-cover">
+                            <div class="image-overlay"></div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold text-white mb-2">Grilled Fish</h3>
+                            <p class="text-gray-300 mb-4">Perfectly seasoned whole fish with tropical vegetables</p>
+                            <div class="text-coral font-bold text-xl">$28.99</div>
+                        </div>
+                    </div>
+
+                    <!-- Dish 3 -->
+                    <div class="glass-card rounded-2xl overflow-hidden reveal group">
+                        <div class="image-container h-64">
+                            <img src="./assets/image_8.jpg" alt="Paella" class="w-full h-full object-cover">
+                            <div class="image-overlay"></div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold text-white mb-2">Caribbean Paella</h3>
+                            <p class="text-gray-300 mb-4">Traditional rice dish loaded with fresh seafood</p>
+                            <div class="text-coral font-bold text-xl">$32.99</div>
+                        </div>
+                    </div>
+
+                    <!-- Dish 4 -->
+                    <div class="glass-card rounded-2xl overflow-hidden reveal group">
+                        <div class="image-container h-64">
+                            <img src="./assets/image_9.jpg" alt="Calamari" class="w-full h-full object-cover">
+                            <div class="image-overlay"></div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold text-white mb-2">Crispy Calamari</h3>
+                            <p class="text-gray-300 mb-4">Golden fried calamari with citrus aioli</p>
+                            <div class="text-coral font-bold text-xl">$18.99</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-12 reveal">
+                    <a href="#contact" class="btn-primary text-white px-10 py-4 rounded-full font-semibold text-lg inline-block">
+                        View Full Menu
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="py-24 px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-5xl md:text-6xl font-bold text-white mb-4">
+                        Our <span class="text-turquoise">Atmosphere</span>
+                    </h2>
+                    <p class="text-xl text-gray-300">Experience the beauty of Havana</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="reveal">
+                        <div class="image-container rounded-2xl overflow-hidden shadow-2xl h-96">
+                            <img src="./assets/image_11.jpg" alt="Restaurant View" class="w-full h-full object-cover">
+                            <div class="image-overlay"></div>
+                        </div>
+                    </div>
+                    <div class="reveal">
+                        <div class="image-container rounded-2xl overflow-hidden shadow-2xl h-96">
+                            <img src="./assets/image_2.jpg" alt="Ocean Paradise" class="w-full h-full object-cover">
+                            <div class="image-overlay"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-24 px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="reveal">
+                        <h2 class="text-5xl md:text-6xl font-bold text-white mb-6">
+                            Visit <span class="text-coral">Us</span>
+                        </h2>
+                        <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+                            Join us for an unforgettable dining experience. Whether it's lunch by the sea or a romantic sunset dinner, Havana Bar & Grill is ready to welcome you.
+                        </p>
+
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 bg-gradient-to-br from-coral to-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white mb-2">Location</h3>
+                                    <p class="text-gray-300">123 Coastal Highway<br>Paradise Beach, CB 12345</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 bg-gradient-to-br from-turquoise to-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white mb-2">Hours</h3>
+                                    <p class="text-gray-300">Monday - Thursday: 11am - 10pm<br>Friday - Sunday: 11am - 11pm</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-cyan-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white mb-2">Contact</h3>
+                                    <p class="text-gray-300">Phone: (555) 123-4567<br>Email: info@havanabarandgrill.com</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="reveal">
+                        <div class="glass-card p-8 rounded-2xl">
+                            <h3 class="text-3xl font-bold text-white mb-6">Reserve Your Table</h3>
+                            <form class="space-y-6">
+                                <div>
+                                    <input type="text" placeholder="Your Name" class="w-full px-6 py-4 rounded-xl bg-white bg-opacity-10 border border-white border-opacity-20 text-white placeholder-gray-400 focus:outline-none focus:border-coral transition-colors">
+                                </div>
+                                <div>
+                                    <input type="email" placeholder="Email Address" class="w-full px-6 py-4 rounded-xl bg-white bg-opacity-10 border border-white border-opacity-20 text-white placeholder-gray-400 focus:outline-none focus:border-coral transition-colors">
+                                </div>
+                                <div>
+                                    <input type="tel" placeholder="Phone Number" class="w-full px-6 py-4 rounded-xl bg-white bg-opacity-10 border border-white border-opacity-20 text-white placeholder-gray-400 focus:outline-none focus:border-coral transition-colors">
+                                </div>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <input type="date" class="w-full px-6 py-4 rounded-xl bg-white bg-opacity-10 border border-white border-opacity-20 text-white focus:outline-none focus:border-coral transition-colors">
+                                    <input type="time" class="w-full px-6 py-4 rounded-xl bg-white bg-opacity-10 border border-white border-opacity-20 text-white focus:outline-none focus:border-coral transition-colors">
+                                </div>
+                                <div>
+                                    <input type="number" placeholder="Number of Guests" min="1" class="w-full px-6 py-4 rounded-xl bg-white bg-opacity-10 border border-white border-opacity-20 text-white placeholder-gray-400 focus:outline-none focus:border-coral transition-colors">
+                                </div>
+                                <div>
+                                    <textarea placeholder="Special Requests" rows="3" class="w-full px-6 py-4 rounded-xl bg-white bg-opacity-10 border border-white border-opacity-20 text-white placeholder-gray-400 focus:outline-none focus:border-coral transition-colors resize-none"></textarea>
+                                </div>
+                                <button type="submit" class="w-full btn-primary text-white px-8 py-4 rounded-xl font-semibold text-lg">
+                                    Confirm Reservation
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-12 px-4 border-t border-white border-opacity-10">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid md:grid-cols-3 gap-8 mb-8">
+                    <div>
+                        <h3 class="text-2xl font-bold text-white mb-4">
+                            <span class="text-coral">HAVANA</span>
+                        </h3>
+                        <p class="text-gray-300">Where Caribbean flavors meet the ocean breeze.</p>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold text-white mb-4">Quick Links</h4>
+                        <div class="space-y-2">
+                            <a href="#home" class="block text-gray-300 hover:text-coral transition-colors">Home</a>
+                            <a href="#about" class="block text-gray-300 hover:text-coral transition-colors">About</a>
+                            <a href="#menu" class="block text-gray-300 hover:text-coral transition-colors">Menu</a>
+                            <a href="#contact" class="block text-gray-300 hover:text-coral transition-colors">Contact</a>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold text-white mb-4">Follow Us</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="w-10 h-10 bg-white bg-opacity-10 rounded-full flex items-center justify-center text-white hover:bg-coral hover:bg-opacity-100 transition-all">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-white bg-opacity-10 rounded-full flex items-center justify-center text-white hover:bg-coral hover:bg-opacity-100 transition-all">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-white bg-opacity-10 rounded-full flex items-center justify-center text-white hover:bg-coral hover:bg-opacity-100 transition-all">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-t border-white border-opacity-10 pt-8 text-center text-gray-400">
+                    <p>&copy; 2025 Havana Bar & Grill. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+        });
+
+        // Close mobile menu when clicking on a link
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+            });
+        });
+
+        // Reveal on scroll animation
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            revealElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const revealPoint = 100;
+
+                if (elementTop < windowHeight - revealPoint) {
+                    element.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // Initial check
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Form submission handler
+        const reservationForm = document.querySelector('form');
+        reservationForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your reservation! We will contact you shortly to confirm.');
+            reservationForm.reset();
+        });
+    </script>
 </body>
 </html>
